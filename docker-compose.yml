@@ -1,0 +1,14 @@
+services:
+  myapp:
+    build: .
+    container_name: myapp
+
+  nginx:
+    image: nginx:latest
+    container_name: nginx-proxy
+    ports:
+      - "80:80"
+    volumes:
+      - ./nginx.conf:/etc/nginx/nginx.conf
+    depends_on:
+      - myapp
