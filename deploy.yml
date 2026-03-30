@@ -1,0 +1,44 @@
+---
+- name: Deploy my Docker Compose project
+  hosts: localhost
+  become: yes
+  vars:
+    app_dir: /home/maimba/mycompose
+
+  tasks:
+    - name: Install required packages
+      apt:
+        name: "{{ item }}"
+        state: present
+      loop:
+        - docker.io
+        - docker-compose
+        - git
+
+    - name: Clone my repository
+      git:
+        repo: https://github.com/Teresamaimba/mycompose
+        dest: "{{ app_dir }}"
+        update: no
+
+    - name: Copy nginx config
+      copy:
+        src: "{{ app_dir }}/nginx.conf"
+        dest: /etc/nginx/nginx.conf
+      notify: restart nginx
+
+    - name: Start containers
+      docker_compose:
+        project_src: "{{ app_dir }}"
+        state: present
+
+    - name: Create deployment record
+      copy:
+        content: "Deployed by Ansible"
+        dest: "{{ app_dir }}/deployed.txt"
+
+  handlers:
+    - name: restart nginx
+      service:
+        name: nginx
+        state: restarted
