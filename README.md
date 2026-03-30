@@ -12,6 +12,15 @@ A simple Python web application containerized with Docker and served behind an N
 ```bash
 docker-compose up
 ```
+
+## Automated Deployment with Ansible
+
+This project includes an Ansible playbook that automates the entire deployment:
+
+```bash
+ansible-playbook deploy.yml --ask-become-pass
+
+
 Visit http://localhost:80 in your browser.
 
 ## Tech Stack
