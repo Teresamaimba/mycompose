@@ -1,0 +1,22 @@
+name: Test Docker Build
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      
+      - name: Build Docker image
+        run: |
+          docker build -t myapp:test .
+          echo "✅ Build successful!"
+      
+      - name: Show built image
+        run: |
+          docker images
