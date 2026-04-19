@@ -2,6 +2,8 @@ services:
   myapp:
     build: .
     container_name: myapp
+    ports:
+      - "8080:8080"
 
   nginx:
     image: nginx:latest
