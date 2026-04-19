@@ -28,3 +28,4 @@ Visit http://localhost:80 in your browser.
 - Docker Compose
 - Python
 - Nginx# mycompose
+# Updated after ignoring secret alert
